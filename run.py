@@ -10,6 +10,7 @@ from keras import layers
 from keras import layers
 import keras
 from keras.models import Sequential
+import tensorflow as tf
 
 # DataLoading (Tutaj wczytamy nasze pliki dźwiękowe z danej ścieżki,
 # a nastepnie przekonwertujemy to do danych zrozumiałych dla komputera i zapiszemy w ppliku .cvs)
@@ -57,7 +58,6 @@ def dataLoading(csvFilename):
             with file:
                 writer = csv.writer(file)
                 writer.writerow(toAppend.split())
-            print(filename)
 def nn():
     # Załadowanie danych oraz przygotowanie ich do naszej sieci ANN
     data = pd.read_csv('data.csv')
@@ -68,10 +68,12 @@ def nn():
     y = encoder.fit_transform(soundList)
     scaler = StandardScaler()
     X = scaler.fit_transform(np.array(data.iloc[:, :-1], dtype=float))
+    # X - są to dane do uczenia naszej sieci a y - to nr dźwięków od 0-9
+    # Podział jest prosty do trenowania 80% czyli 320 wektorów a do testowania 80 wektorów
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
     # Tutaj określamy nasze ANN
-    
+
 # Funkcja główna
 if __name__ == '__main__':
     # dataLoading("data.csv")
