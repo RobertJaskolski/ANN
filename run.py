@@ -11,6 +11,7 @@ from keras import layers
 import keras
 from keras.models import Sequential
 import tensorflow as tf
+from sklearn.metrics import confusion_matrix
 
 # DataLoading (Tutaj wczytamy nasze pliki dźwiękowe z danej ścieżki,
 # a nastepnie przekonwertujemy to do danych zrozumiałych dla komputera i zapiszemy w ppliku .cvs)
@@ -58,6 +59,8 @@ def dataLoading(csvFilename):
             with file:
                 writer = csv.writer(file)
                 writer.writerow(toAppend.split())
+def forOneAudio():
+    pass # Tutaj będziemy dodawać jedno audio dla sprawdzenia
 def nn():
     # Załadowanie danych oraz przygotowanie ich do naszej sieci ANN
     data = pd.read_csv('data.csv')
@@ -74,7 +77,24 @@ def nn():
 
     # Tutaj określamy nasze ANN
 
+    model = Sequential()
+    model.add(layers.Dense(256, activation='relu', input_shape=(X_train.shape[1],)))
+    model.add(layers.Dense(128, activation='relu'))
+    model.add(layers.Dense(64, activation='relu'))
+    model.add(layers.Dense(10, activation='softmax'))
+    model.compile(optimizer='adam',
+                  loss='sparse_categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    classifier = model.fit(X_train,
+                           y_train,
+                           epochs=80,
+                           batch_size=128)
+
+    return model
+
+
 # Funkcja główna
 if __name__ == '__main__':
     # dataLoading("data.csv")
-    nn()
+    network = nn()
