@@ -91,7 +91,8 @@ def forOneAudio(model, audio, data):
     predictions_single = model.predict(X)
     sounds = 'Baby-cry Chainsaw Clock-tick Dog-bark Fire-crackling Helicopter Person-sneeze Rain Rooster Sea-waves'.split()
     print(np.argmax(predictions_single[400]))
-    print(sounds[np.argmax(predictions_single[400])])
+
+    return (sounds[np.argmax(predictions_single[400])])
 def nn():
     # Załadowanie danych oraz przygotowanie ich do naszej sieci ANN
     data = pd.read_csv('data.csv')
