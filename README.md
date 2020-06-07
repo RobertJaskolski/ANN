@@ -7,3 +7,5 @@
 4. pip install sklearn
 5. pip install pandas
 6. pip install keras
+7. pip install kivy
+## Aby uruchomić program nalezy uruchomić app.py w środowisku
